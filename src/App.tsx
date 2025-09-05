@@ -3,7 +3,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import ComicSection from "./components/ComicSection";
 import Footer from "./components/Footer";
-import Topgap from "./components/topgap";
+import Topgap from "./components/Topgap";
 
 export default function App() {
   return (

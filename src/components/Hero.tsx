@@ -44,9 +44,9 @@ const featuredComics = [
 
 export default function Hero() {
   return (
-    <section id="home" className="relative pt-20 pb-12 lg:pb-16">
+    <section id="home" className="relative pt-20 pt-22">
       <div className="container mx-auto px-4 lg:px-6">
-        {/* Welcome Text */}
+        {/* Welcome Text
         <div className="text-center mb-8 lg:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
@@ -56,7 +56,7 @@ export default function Hero() {
           <p className="text-lg text-white/80 max-w-2xl mx-auto">
             Jelajahi koleksi komik terlengkap dengan kualitas terbaik
           </p>
-        </div>
+        </div> */}
 
         {/* Featured Comics Carousel */}
         <div className="relative max-w-6xl mx-auto">
@@ -64,100 +64,78 @@ export default function Hero() {
             <CarouselContent>
               {featuredComics.map((comic) => (
                 <CarouselItem key={comic.id}>
-                  <div className="relative bg-gradient-to-br from-black/40 to-black/60 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                      {/* Content */}
-                      <div className="p-8 lg:p-12 flex flex-col justify-center">
-                        <div className="space-y-6">
-                          {/* Badges */}
-                          <div className="flex gap-2">
-                            <span className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-medium">
-                              {comic.genre}
-                            </span>
-                            {comic.isNew && (
-                              <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                NEW
-                              </span>
-                            )}
-                            {comic.isHot && (
-                              <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                HOT
-                              </span>
-                            )}
-                          </div>
+                  <div className="relative rounded-2xl overflow-hidden">
+                    {/* Gambar sebagai cover */}
+                    <ImageWithFallback
+                      src={comic.image}
+                      alt={comic.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
 
-                          {/* Title */}
-                          <div>
-                            <h2 className="text-2xl lg:text-3xl font-bold text-white mb-2">
-                              {comic.title}
-                            </h2>
-                            <p className="text-yellow-400 mb-3">{comic.subtitle}</p>
-                            <p className="text-white/70 leading-relaxed">
-                              {comic.description}
-                            </p>
-                          </div>
-
-                          {/* Rating */}
-                          <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-1">
-                              {[1, 2, 3, 4, 5].map((star) => (
-                                <Star 
-                                  key={star} 
-                                  className="w-4 h-4 fill-yellow-400 text-yellow-400" 
-                                />
-                              ))}
-                            </div>
-                            <span className="text-white/70">{comic.rating}</span>
-                          </div>
-
-                          {/* Action Buttons */}
-                          <div className="flex flex-col sm:flex-row gap-3">
-                            <Button 
-                              className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-semibold"
-                            >
-                              <Play className="w-4 h-4 mr-2" />
-                              Baca Sekarang
-                            </Button>
-                            <Button 
-                              variant="outline"
-                              className="border-white/20 text-white hover:bg-white/10"
-                            >
-                              <Bookmark className="w-4 h-4 mr-2" />
-                              Simpan
-                            </Button>
-                          </div>
-                        </div>
+                    {/* Overlay gradient biar tulisan kelihatan */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-black/60" />
+              
+                    {/* Konten */}
+                    <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-0 p-8 lg:p-12 items-start">
+                      {/* Badges */}
+                      <div className="flex gap-2 mb-4">
+                        <span className="bg-yellow-400/20 text-yellow-400 px-3 py-1 rounded-full text-sm font-medium">
+                          {comic.genre}
+                        </span>
+                        {comic.isNew && (
+                          <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            NEW
+                          </span>
+                        )}
+                        {comic.isHot && (
+                          <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            HOT
+                          </span>
+                        )}
                       </div>
-
-                      {/* Comic Cover */}
-                      <div className="relative h-64 lg:h-80">
-                        <ImageWithFallback
-                          src={comic.image}
-                          alt={comic.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent lg:bg-gradient-to-l lg:from-black/60 lg:via-transparent lg:to-transparent" />
+                      
+                      {/* Title & Description */}
+                      <div className="space-y-3">
+                        <h2 className="text-2xl lg:text-3xl font-bold text-white">{comic.title}</h2>
+                        <p className="text-yellow-400">{comic.subtitle}</p>
+                        <p className="text-white/70">{comic.description}</p>
+                      
+                        {/* Rating */}
+                        <div className="flex items-center gap-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star key={star} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                          <span className="text-white/70">{comic.rating}</span>
+                        </div>
+                        
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-3 mt-3">
+                          <Button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-semibold hover:from-yellow-500 hover:to-orange-600">
+                            <Play className="w-4 h-4 mr-2" />
+                            Baca Sekarang
+                          </Button>
+                          <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
+                            <Bookmark className="w-4 h-4 mr-2" />
+                            Simpan
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            
-            {/* Navigation */}
-            <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 border-white/20 text-white hover:bg-black/70 hover:text-yellow-400" />
-            <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 border-white/20 text-white hover:bg-black/70 hover:text-yellow-400" />
           </Carousel>
         </div>
 
         {/* Genres Section */}
         <section id="genres">
-          <div className="flex items-center gap-3 mb-8">
+          {/* <div className="flex items-center gap-3 mb-8">
             <Star className="w-6 h-6 text-blue-400" />
             <h2 className="text-3xl font-bold text-white">Genre Favorit</h2>
-          </div>
+          </div> */}
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
             {[
               { name: "Action", count: "1,234", color: "from-red-500 to-orange-500" },
               { name: "Romance", count: "987", color: "from-pink-500 to-rose-500" },
